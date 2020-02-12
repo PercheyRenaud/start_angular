@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MovieService } from './core/service/movie.service';
 import { SearchComponent } from './pages/home/search/search.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { SearchComponent } from './pages/home/search/search.component';
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
   ],
   providers: [MovieService],
   bootstrap: [AppComponent]

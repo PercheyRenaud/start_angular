@@ -42,28 +42,6 @@ public searchForm: FormGroup;
     });
   }
 
-public reload(): void {
-  console.log('something in the field has changed')
-  if (this.searchTerm.value.trim().length == 0) {
-    console.log('have to reload all list')
-    let movies: Movie[] = [];
-      this.movieService.all()
-        .pipe(
-          take(1)
-        )
-        .subscribe((response: Movie[]) => {
-          movies = response.map((movie: any) => {
-            return new Movie().deserialize(movie);
-          });
-          console.log(`Emit : ${JSON.stringify(movies)}`)
-          this.movies.emit(movies);
-        });
-    }
-
-    
-  }
-
-
 
   public doSearch(): void {
     if (this.searchTerm.value.trim().length > 0) {
@@ -82,5 +60,23 @@ public reload(): void {
     }
   }
 
+  public reload(): void {
+    console.log('something in the field has changed')
+    if (this.searchTerm.value.trim().length == 0) {
+      console.log('have to reload all list')
+      let movies: Movie[] = [];
+        this.movieService.all()
+          .pipe(
+            take(1)
+          )
+          .subscribe((response: Movie[]) => {
+            movies = response.map((movie: any) => {
+              return new Movie().deserialize(movie);
+            });
+            console.log(`Emit : ${JSON.stringify(movies)}`)
+            this.movies.emit(movies);
+          });
+      }
+    }
 
 }

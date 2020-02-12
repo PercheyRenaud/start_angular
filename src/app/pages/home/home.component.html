@@ -1,17 +1,33 @@
 <div class="container">
+    <h1 id="titre">Futur'ovies</h1>
+    <h2 id="soustitre"> The best application for checking your favories movies </h2>
+    <!-- class=" container text-center -->
+    <div>
 
-    <mat-form-field class="py-5">
-        <mat-label>Select By Year</mat-label>
-        <mat-select aria-setsize="1" [(ngModel)]="defaultYear">
-            <mat-option value="0"> All </mat-option>
-            <mat-option *ngFor="let year of years " value="{{year}}">
-                {{year}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-toolbar color="rouge">
+            <ul>
+                <mat-toolbar-row>
+                    <app-search (movies)="receiveMovies($event)"> </app-search>
+                    <span class="example-spacer"></span>
+                    <span>
+                        <mat-form-field class="py-5">
+                            <mat-label>Select By Years</mat-label>
+                            <mat-select aria-setsize="1" [(ngModel)]="defaultYear">
+                                <mat-option value="0"> All </mat-option>
+                                <mat-option *ngFor="let year of years " value="{{year}}">
+                                    {{year}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </span>
+                </mat-toolbar-row>
+            </ul>
+         </mat-toolbar>
+    </div>
+
 
     <!-- reçoit les movies  -->
-    <app-search (movies)="receiveMovies($event)"> </app-search>
+
 
 
 
