@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
 })
 
 export class MovieService {
+  byTitle(arg0: string) {
+    throw new Error("Method not implemented.");
+  }
 
   constructor(
     private httpClient: HttpClient
@@ -37,6 +40,13 @@ export class MovieService {
 
   public all(): Observable<Movie[]> {
     const apiRoute = `${environment.apiRoot}movie`;
+    return this.httpClient.get<Movie[]>(
+      apiRoute
+    );
+  }
+
+  public getByTitle(search: String): Observable<Movie[]> {
+    const apiRoute = `${environment.apiRoot}movie/byTitleContaining?t=${search}`;
     return this.httpClient.get<Movie[]>(
       apiRoute
     );
