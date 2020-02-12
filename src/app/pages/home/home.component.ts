@@ -52,5 +52,6 @@ export class HomeComponent implements OnInit {
     console.log(`Received $(JSON.stringify(this.movies)}`);
     // TODO mettre à jour les dates 
     this.yearsSet.clear();
+    
   }
 }

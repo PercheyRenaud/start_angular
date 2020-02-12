@@ -1,9 +1,19 @@
 <!-- barre recherche film -->
-<form class="example-form">
+<form [formGroup]="searchForm" class="example-form">
     <mat-form-field class="example-full-width">
         <mat-label> Film</mat-label>
-        <input [(ngModel)]="searchTerm" name="SearchTerm" matInput placeholder="Ex. Joker">
+        <input 
+        matInput 
+        type="search"
+        placeholder="Ex. Joker" 
+        formControlName="searchTerm"
+        (ngModelChange)="reload()"
+        >
     </mat-form-field>
     <!-- boutton recherche film -->
-    <button class="example-button-row" mat-button color="primary" (click)="doSearch()"> Search...</button>
+    <button class="example-button-row" 
+    mat-button color="primary"
+    (click)="doSearch()"
+    [disabled]="searchForm.invalid"
+    > Search...</button>
 </form>
