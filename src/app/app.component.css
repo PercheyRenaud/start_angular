@@ -1,0 +1,15 @@
+div.movie {
+  width: 100%;
+  height: 90px; }
+  div.movie h2.title {
+    font-family: 'MonotonRegular';
+    letter-spacing: .25rem;
+    text-transform: uppercase; }
+  div.movie p {
+    font-family: 'CodaCaptionExtraBold'; }
+
+.action li {
+  cursor: pointer;
+  list-style: none; }
+
+/*# sourceMappingURL=app.component.css.map */

@@ -1,0 +1,50 @@
+<div class="container">
+
+
+    <!-- <div class="row flex-row">
+        <div class="col-3" *ngFor="let movie of movies" [hidden]="!((movie.contry.iso == defaultContry) || defaultContry == 'all')">
+            <div class="card" *ngIf="(movie.contry.iso == defaultContry) || defaultContry == 'all' ">
+                <img class="img-fluid" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                <div class="card-body">
+                    <h2 [ngClass]="{'old text-danger': movie.year < 2000 , 'title': true}">{{movie.title}}</h2>
+                    <p [ngClass]="{'year': true}">{{movie.year}}</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="action">
+      <ul class="d-flex flex-row align-items-center p-0 m-0">
+          <li class="mr-3 btn btn-outline-primary" [ngClass]="{'active' : defaultContry == 'us'}" (click)="defaultContry = 'us'">[us]</li>
+          <li class="btn btn-outline-primary " [ngClass]="{'active' : defaultContry == 'it'}" (click)="defaultContry = 'it'">[it]</li>
+      </ul>
+  </div> -->
+
+    <!-- <div id="filter">
+        <select class="form-control" size="1" [(ngModel)]="defaultContry">
+        <option value="all" selected>all</option>
+        <option *ngFor = "let contry of countries | keyvalue" value="{{contry.key}}" >{{contry.value.text}}</option>
+    </select>
+    </div> -->
+
+    <div class="row row-eq-height">
+        <div class="col-3" *ngFor="let movie of movies" [hidden]="!((movie.year == defaultYear) || defaultYear == 0)">
+            <div class="card my-3 movie" *ngIf="(movie.year == defaultYear) || defaultYear == 0">
+                <div class="card-body">
+                    <h2 [ngClass]="{'old text-danger': movie.year < 2010 , 'title': true}">{{movie.title | titlecase }}</h2>
+                    <p [ngClass]="{'year': true}">{{movie.year}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-form-field class="py-5">
+        <mat-label>Select By Year</mat-label>
+        <mat-select aria-setsize="1" [(ngModel)]="defaultYear">
+            <mat-option value="0"> All </mat-option>
+            <mat-option *ngFor="let year of years " value="{{year}}">
+                {{year}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
