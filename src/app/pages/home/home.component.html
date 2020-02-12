@@ -1,5 +1,19 @@
 <div class="container">
-<app-search></app-search>
+
+    <mat-form-field class="py-5">
+        <mat-label>Select By Year</mat-label>
+        <mat-select aria-setsize="1" [(ngModel)]="defaultYear">
+            <mat-option value="0"> All </mat-option>
+            <mat-option *ngFor="let year of years " value="{{year}}">
+                {{year}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- reçoit les movies  -->
+    <app-search (movies)="receiveMovies($event)"> </app-search>
+
+
 
     <!-- <div class="row flex-row">
         <div class="col-3" *ngFor="let movie of movies" [hidden]="!((movie.contry.iso == defaultContry) || defaultContry == 'all')">
@@ -31,20 +45,13 @@
         <div class="col-3" *ngFor="let movie of movies" [hidden]="!((movie.year == defaultYear) || defaultYear == 0)">
             <div class="card my-3 movie" *ngIf="(movie.year == defaultYear) || defaultYear == 0">
                 <div class="card-body">
-                    <h2 [ngClass]="{'old text-danger': movie.year < 2010 , 'title': true}">{{movie.title | titlecase }}</h2>
+                    <h2 [ngClass]="{'old text-danger': movie.year < 2010 , 'title': true}">{{movie.title | titlecase }}
+                    </h2>
                     <p [ngClass]="{'year': true}">{{movie.year}}</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <mat-form-field class="py-5">
-        <mat-label>Select By Year</mat-label>
-        <mat-select aria-setsize="1" [(ngModel)]="defaultYear">
-            <mat-option value="0"> All </mat-option>
-            <mat-option *ngFor="let year of years " value="{{year}}">
-                {{year}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+
 </div>

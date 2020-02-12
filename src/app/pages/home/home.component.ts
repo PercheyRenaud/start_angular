@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   public title = 'cinema-app';
   public defaultYear = 0 ;
   public years: number[] = [];
+  public yearsSet:  Set<number> = new Set<number>();
   // public countries: Map<string, any> = new Map<string, any>();
 
   public movies: Movie [] = [];
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const years: Set<number> = new Set<number>();
+    const yearsSet: Set<number> = new Set<number>();
 
     this.movieService.all()
     .pipe(
@@ -31,10 +32,10 @@ export class HomeComponent implements OnInit {
     .subscribe((Response: any[]) => {
       console.log(`Response : ${JSON.stringify(Response)}`);
       this.movies = Response.map((movie: Movie) => {
-        years.add(movie.year);
+        yearsSet.add(movie.year);
         return new Movie().deserialize(movie);
       });
-      this.years = Array.from(years).sort();
+      this.years = Array.from(yearsSet).sort();
       // console.log(`Response : ${JSON.stringify(this.movies)}`);
     });
   }
@@ -45,4 +46,11 @@ export class HomeComponent implements OnInit {
   //     movie.show = movie.contry.iso === this.defaultContry;
   //   });
   // }
+
+  public receiveMovies($event): void {
+    this.movies = $event;
+    console.log(`Received $(JSON.stringify(this.movies)}`);
+    // TODO mettre à jour les dates 
+    this.yearsSet.clear();
+  }
 }
