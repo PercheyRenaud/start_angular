@@ -1,8 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Movie } from 'src/app/core/model/movie';
 import { MovieService } from 'src/app/core/service/movie.service';
-import { take } from 'rxjs/operators';
+import { take, tap, debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Observable, pipe } from 'rxjs';
 
 
 
@@ -15,22 +16,21 @@ export class SearchComponent implements OnInit {
 
 
   // pour regrouper les controles = ce qu'il y a dans les champs
-public searchForm: FormGroup;  
+  public searchForm: FormGroup;
 
   constructor(
     private movieService: MovieService,
     private formBuilder: FormBuilder,
-    ) { }
+  ) { }
 
-    public get searchTerm(): AbstractControl {
-      return this.searchForm.controls.searchTerm;
-    }
+  public get searchTerm(): AbstractControl {
+    return this.searchForm.controls.searchTerm;
+  }
 
-
-  @Output() movies: EventEmitter<Movie[]> = new EventEmitter<Movie[]>();
+  @Output() movies: EventEmitter<Observable<Movie[]>> = new EventEmitter<Observable<Movie[]>>();
 
   ngOnInit(): void {
-    this.searchForm= this.formBuilder.group({
+    this.searchForm = this.formBuilder.group({
       searchTerm: [
         '', //default value for the control
         Validators.compose([
@@ -40,40 +40,35 @@ public searchForm: FormGroup;
         ])
       ]
     });
+    this.searchTerm.valueChanges
+    
+    .pipe(
+      debounceTime(400),
+      
+      map(() => {
+          console.log('value of searchTerm ' + this.searchTerm)
+          this.doSearch();
+        })
+      ).subscribe();
   }
-
 
   public doSearch(): void {
     if (this.searchTerm.value.trim().length > 0) {
-      let movies: Movie[] = [];
-      this.movieService.getByTitle(this.searchTerm.value.trim())
-        .pipe(
-          take(1)
-        )
-        .subscribe((response: Movie[]) => {
-          console.log(`Emit : ${JSON.stringify(response)}`)
-          this.movies.emit(response);
-        });
+      this.movies.emit(
+        this.movieService.getByTitle(this.searchTerm.value.trim())
+      );
     }
   }
 
   public reload(): void {
     console.log('something in the field has changed')
     if (this.searchTerm.value.trim().length == 0) {
-      console.log('have to reload all list')
-      let movies: Movie[] = [];
+      // console.log('have to reload all list')
+      this.movies.emit(
         this.movieService.all()
-          .pipe(
-            take(1)
-          )
-          .subscribe((response: Movie[]) => {
-            movies = response.map((movie: any) => {
-              return new Movie().deserialize(movie);
-            });
-            console.log(`Emit : ${JSON.stringify(response)}`)
-            this.movies.emit(response);
-          });
-      }
+      );
     }
+  }
+
 
 }

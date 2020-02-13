@@ -2,8 +2,8 @@
     <h1 id="titre">Futur'ovies</h1>
     <h2 id="soustitre"> The best application for checking your favorite movies </h2>
     <!-- class=" container text-center -->
+    
     <div>
-
         <mat-toolbar color="rouge">
             <ul>
                 <mat-toolbar-row>
@@ -22,7 +22,7 @@
                     </span>
                 </mat-toolbar-row>
             </ul>
-         </mat-toolbar>
+        </mat-toolbar>
     </div>
 
 
@@ -58,10 +58,11 @@
     </div> -->
 
     <div class="row row-eq-height">
-        <div class="col-3" *ngFor="let movie of movies" [hidden]="!((movie.year == defaultYear) || defaultYear == 0)">
+        <div class="col-3" *ngFor="let movie of movies | async"
+            [hidden]="!((movie.year == defaultYear) || defaultYear == 0)">
             <div class="card my-3 movie" *ngIf="(movie.year == defaultYear) || defaultYear == 0">
                 <div class="card-body">
-                    <h2 >{{movie.title | titlecase }}
+                    <h2>{{movie.title | titlecase }}
                     </h2>
                     <p [ngClass]="{'year': true}">{{movie.year}}</p>
                 </div>

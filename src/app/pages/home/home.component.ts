@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from 'src/app/core/service/movie.service';
 import { take } from 'rxjs/operators';
 import { Movie } from 'src/app/core/model/movie';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,28 +17,14 @@ export class HomeComponent implements OnInit {
   public yearsSet:  Set<number> = new Set<number>();
   // public countries: Map<string, any> = new Map<string, any>();
 
-  public movies: Movie [] = [];
+  public movies: Observable<Movie[]>;
 
   constructor(
     private movieService: MovieService
   ) {}
 
   ngOnInit(): void {
-    const yearsSet: Set<number> = new Set<number>();
-
-    this.movieService.all()
-    .pipe(
-      take(1)
-    )
-    .subscribe((response: any[]) => {
-      // console.log(`Response : ${JSON.stringify(response)}`);
-      this.movies = response;
-      this.movies.map((movie: Movie) => {
-        yearsSet.add(movie.year);
-      });
-      this.years = Array.from(yearsSet).sort();
-      // console.log(`Response : ${JSON.stringify(this.movies)}`);
-    });
+   this.movies = this.movieService.all();
   }
 
   // public toggleContry(): void {
@@ -51,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.movies = $event;
     console.log(`Received $(JSON.stringify(this.movies)}`);
     // TODO mettre à jour les dates 
-    this.yearsSet.clear();
+    // this.yearsSet.clear();
     
   }
 }
