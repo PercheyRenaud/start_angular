@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Movie } from './../model/movie';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
 
@@ -11,16 +11,20 @@ import { take, map } from 'rxjs/operators';
 })
 
 export class MovieService {
-  byTitle(arg0: string) {
-    throw new Error("Method not implemented.");
-  }
+
+  public _years: Set<number> = new Set<number>();
+  public years$: BehaviorSubject<number[]> =
+    new BehaviorSubject<number[]>(Array.from(this._years).sort());
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
 
+
+
   public all(): Observable<Movie[]> {
+    this._years= new Set<number>();
     const apiRoute = `${environment.apiRoot}movie`;
     return this.httpClient.get<any[]>(
       apiRoute
@@ -28,12 +32,21 @@ export class MovieService {
       .pipe(
         take(1),
         map((response) => {
-          return response.map((item) => new Movie().deserialize(item))
+          return response.map((item) => {
+            this._years.add(item.year);
+            this.years$.next(Array.from(this._years).sort());
+            return new Movie().deserialize(item)
+          });
         })
       );
   }
 
+  byTitle(arg0: string) {
+    throw new Error("Method not implemented.");
+  }
+
   public getByTitle(search: String): Observable<Movie[]> {
+    this._years= new Set<number>();
     const apiRoute = `${environment.apiRoot}movie/byTitleContaining?t=${search}`;
     return this.httpClient.get<any[]>(
       apiRoute
@@ -41,10 +54,13 @@ export class MovieService {
       .pipe(
         take(1),
         map((response) => {
-          return response.map((item) => new Movie().deserialize(item))
+          return response.map((item) => {
+          this._years.add(item.year);
+          this.years$.next(Array.from(this._years).sort());
+          return new Movie().deserialize(item)
+          });
         })
       );
-
   }
 
 }

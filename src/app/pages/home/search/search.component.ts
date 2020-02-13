@@ -57,6 +57,7 @@ export class SearchComponent implements OnInit {
       this.movies.emit(
         this.movieService.getByTitle(this.searchTerm.value.trim())
       );
+      
     }
   }
 
