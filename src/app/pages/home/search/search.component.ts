@@ -51,11 +51,8 @@ public searchForm: FormGroup;
           take(1)
         )
         .subscribe((response: Movie[]) => {
-          movies = response.map((movie: any) => {
-            return new Movie().deserialize(movie);
-          });
-          console.log(`Emit : ${JSON.stringify(movies)}`)
-          this.movies.emit(movies);
+          console.log(`Emit : ${JSON.stringify(response)}`)
+          this.movies.emit(response);
         });
     }
   }
@@ -73,8 +70,8 @@ public searchForm: FormGroup;
             movies = response.map((movie: any) => {
               return new Movie().deserialize(movie);
             });
-            console.log(`Emit : ${JSON.stringify(movies)}`)
-            this.movies.emit(movies);
+            console.log(`Emit : ${JSON.stringify(response)}`)
+            this.movies.emit(response);
           });
       }
     }

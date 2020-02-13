@@ -29,11 +29,11 @@ export class HomeComponent implements OnInit {
     .pipe(
       take(1)
     )
-    .subscribe((Response: any[]) => {
-      console.log(`Response : ${JSON.stringify(Response)}`);
-      this.movies = Response.map((movie: Movie) => {
+    .subscribe((response: any[]) => {
+      // console.log(`Response : ${JSON.stringify(response)}`);
+      this.movies = response;
+      this.movies.map((movie: Movie) => {
         yearsSet.add(movie.year);
-        return new Movie().deserialize(movie);
       });
       this.years = Array.from(yearsSet).sort();
       // console.log(`Response : ${JSON.stringify(this.movies)}`);

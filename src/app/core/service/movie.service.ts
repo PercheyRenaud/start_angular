@@ -3,6 +3,8 @@ import { environment } from './../../../environments/environment';
 import { Movie } from './../model/movie';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +19,32 @@ export class MovieService {
     private httpClient: HttpClient
   ) { }
 
-  
+
   public all(): Observable<Movie[]> {
     const apiRoute = `${environment.apiRoot}movie`;
-    return this.httpClient.get<Movie[]>(
+    return this.httpClient.get<any[]>(
       apiRoute
-    );
+    )
+      .pipe(
+        take(1),
+        map((response) => {
+          return response.map((item) => new Movie().deserialize(item))
+        })
+      );
   }
 
   public getByTitle(search: String): Observable<Movie[]> {
     const apiRoute = `${environment.apiRoot}movie/byTitleContaining?t=${search}`;
-    return this.httpClient.get<Movie[]>(
+    return this.httpClient.get<any[]>(
       apiRoute
-    );
+    )
+      .pipe(
+        take(1),
+        map((response) => {
+          return response.map((item) => new Movie().deserialize(item))
+        })
+      );
+
   }
 
 }
