@@ -2,11 +2,30 @@
     <div class="container">
         <ul class="navbar-nav d-flex align-items-center flex-row">
             <li class="nav-item p-2">
-                <a class="nav-link text-dark" [routerLink]="['home']" routerLinkActive="active">Home</a>
+                <a class="nav-link text-dark" [routerLink]="['home']" routerLinkActive="active">
+                    <mat-icon>home</mat-icon>
+                </a>
             </li>
-            <li class="nav-item p-2">
-                <a class="nav-link text-dark" [routerLink]="['login']" routerLinkActive="active">Login</a>
+            <li>
+                <a *ngIf="!userService.isAuthenticated" [routerLink]="['login']">
+                    <mat-icon>work</mat-icon> 
+                </a>
+            </li>
+            <li>
+                <a *ngIf="userService.isAuthenticated" (click)="doLogout()" [routerLink]="['home']">
+                    <mat-icon>work_off</mat-icon> 
+                </a>
             </li>
         </ul>
     </div>
 </nav>
+
+<!-- <mat-menu #appMenu="matMenu">
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item>Help</button>
+  </mat-menu> -->
+
+  <!-- <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Custom Toolbar</span>
+    </mat-toolbar-row> -->

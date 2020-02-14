@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -10,11 +11,13 @@ import { RouterModule } from '@angular/router';
   declarations: [NavigationComponent, FooterComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MaterialModule
   ],
   exports: [
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    MaterialModule,
   ]
 })
 export class UiModule { }
