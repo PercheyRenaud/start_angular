@@ -14,7 +14,7 @@ export class UserService {
     this._registeredUsers.push(
       {
         login: 'rperchey',
-        password: 'totototo!'
+        password: 'toto!'
       }
     );
     const userAsString: string = localStorage.getItem('user');
