@@ -62,7 +62,9 @@
             [hidden]="!((movie.year == defaultYear) || defaultYear == 0)">
             <div class="card my-3 movie" *ngIf="(movie.year == defaultYear) || defaultYear == 0">
                 <div class="card-body">
-                    <h2>{{movie.title | titlecase }}
+                    <h2>
+                       <a [routerLink]="['../','movie', movie.idMovie]"> {{movie.title}}
+                        </a>
                     </h2>
                     <p [ngClass]="{'year': true}">{{movie.year}}</p>
                 </div>

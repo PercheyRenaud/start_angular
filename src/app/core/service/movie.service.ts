@@ -63,4 +63,17 @@ export class MovieService {
       );
   }
 
+  public ById(id: number): Observable<any> {
+        const api: string =  `${environment.apiRoot}movie/${id}`;
+       return this.httpClient.get<any>(
+      api
+    )
+      .pipe(
+        take(1),
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
 }
