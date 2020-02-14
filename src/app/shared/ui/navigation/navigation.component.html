@@ -7,12 +7,12 @@
                 </a>
             </li>
             <li>
-                <a *ngIf="!userService.isAuthenticated" [routerLink]="['login']">
+                <a *ngIf="!user" [routerLink]="['login']">
                     <mat-icon>work</mat-icon> 
                 </a>
             </li>
             <li>
-                <a *ngIf="userService.isAuthenticated" (click)="doLogout()" [routerLink]="['home']">
+                <a *ngIf="user" (click)="doLogout()" [routerLink]="['home']">
                     <mat-icon>work_off</mat-icon> 
                 </a>
             </li>
