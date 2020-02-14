@@ -11,6 +11,7 @@ import { MaterialModule } from './shared/material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieService } from './core/service/movie.service';
 import { SearchComponent } from './pages/home/search/search.component';
+import { MovieComponent } from './pages/movie/movie.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SearchComponent } from './pages/home/search/search.component';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    SearchComponent
+    SearchComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,
