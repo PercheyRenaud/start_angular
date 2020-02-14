@@ -1,26 +1,38 @@
-<h1>Login page</h1>
+<div class="container-fluid">
+    <div class="row vh-100">
+        <div class="col-lg-4 d-flex justify-content-center align-items-center bg-white h-100">
+            <div class="content">
+                <h1 class="text-center p-b-20 fw-400">Welcome in Futur'ovies!</h1>
+                <h3 class="text-center p-b-20 fw-400">Please, login for continue in your favorite site</h3>
+                <form [formGroup]="loginForm">
+                    <mat-form-field class="col-12">
+                        <mat-label> Login</mat-label>
+                        <input matInput type="text" placeholder="Your login" formControlName="login">
+                        <mat-error *ngIf="login.touched && login.invalid">
+                            Your login in min 5 chars
+                        </mat-error>
+                    </mat-form-field>             
 
-<form [formGroup]="loginForm">
-    <mat-form-field class="">
-        <mat-label> Login</mat-label>
-        <input matInput type="text" placeholder="Your login" formControlName="login">
-        <mat-error *ngIf="login.touched && login.invalid">
-            Your login in min 5 chars
-        </mat-error>
-    </mat-form-field>
+                    <mat-form-field class="col-12">
+                        <mat-label> Password</mat-label>
+                        <input matInput type="password" placeholder="Your password " formControlName="password">
+                        <mat-error *ngIf="password.touched && password.invalid">
+                            Your password in min 8 chars
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <button class="example-button-row" mat-button color="primary" (click)="doLogin() "
+                        [disabled]="loginForm.invalid">
+                        Go!</button>
 
-    <span class="example-spacer"></span>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-8 d-none d-md-block bg-cover" style="background-image: url('./assets/img/admission.jpg');
+  background-size: cover;"></div>
+    </div>
+</div>
 
-    <mat-form-field class="">
-        <mat-label> Password</mat-label>
-        <input matInput type="password" placeholder="Your password " formControlName="password">
-        <mat-error *ngIf="password.touched && password.invalid">
-            Your password in min 8 chars
-        </mat-error>
-    </mat-form-field>
 
-    <span class="example-spacer"></span>
-    <button class="example-button-row" mat-button color="primary" (click)="doLogin()" [disabled]="loginForm.invalid">
-        Go!</button>
 
-</form>
+<!-- <span class="example-spacer"></span> -->
