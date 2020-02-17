@@ -64,9 +64,9 @@ export class MovieService {
   }
 
   public ById(id: number): Observable<any> {
-        const api: string =  `${environment.apiRoot}movie/${id}`;
+        const apiRoot: string =  `${environment.apiRoot}movie/${id}`;
        return this.httpClient.get<any>(
-      api
+      apiRoot
     )
       .pipe(
         take(1),
