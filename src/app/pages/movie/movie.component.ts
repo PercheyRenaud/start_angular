@@ -52,90 +52,85 @@ export class MovieComponent implements OnInit {
           Validators.required
         ]
     });
-
-    this.route.paramMap.subscribe((paramMap: any) => {
-      console.log(`Params : ${paramMap.params.id}`);
-      this.movieService.ById(paramMap.params.id).subscribe((movie: any) => {
-        //console.log(`And the winner is ${JSON.stringify(movie)}`)
-        this.movie = movie;
+    this.route.data.subscribe((data: { movie: any }) => {
+        this.movie = data.movie;
         this.title.setValue(this.movie.title);
         this.synopsis.setValue(this.movie.synopsis);
         this.genre.setValue(this.movie.genre);
         this.year.setValue(this.movie.year);
-      })
-    });
-  }
+    })
+}
 
   public get title(): AbstractControl {
-    return this.movieForm.controls.title;
-  }
+  return this.movieForm.controls.title;
+}
 
   public get year(): AbstractControl {
-    return this.movieForm.controls.year;
-  }
+  return this.movieForm.controls.year;
+}
 
   public get genre(): AbstractControl {
-    return this.movieForm.controls.genre;
-  }
+  return this.movieForm.controls.genre;
+}
 
   public get synopsis(): AbstractControl {
-    return this.movieForm.controls.synopsis;
-  }
+  return this.movieForm.controls.synopsis;
+}
 
 
 
   public get movieTerm(): AbstractControl {
-    return this.movieForm.controls.movieTerm;
-  }
+  return this.movieForm.controls.movieTerm;
+}
 
   public updateFilm(): void {
-    // console.log('faire mise à jour du film')
-    this.movie.synopsis = this.synopsis.value;
-    this.movie.title = this.title.value;
-    this.movie.year = this.year.value;
-    //this.movie.genre = this.genre.value;
+  // console.log('faire mise à jour du film')
+  this.movie.synopsis = this.synopsis.value;
+  this.movie.title = this.title.value;
+  this.movie.year = this.year.value;
+  //this.movie.genre = this.genre.value;
 
-    this.movieService.update(this.movie)
-      .pipe(
-        take(1)
-      ).subscribe((response: HttpResponse<any>) => {
-        console.log(`update was done with : ${response.status}`);
-      });
-    // message pour dire mise à jour ok 
-    this.snackBar.open(
-      "Thanks for your update"
-      , ''
-      , {
-        duration: 2500
-      })
-  }
+  this.movieService.update(this.movie)
+    .pipe(
+      take(1)
+    ).subscribe((response: HttpResponse<any>) => {
+      console.log(`update was done with : ${response.status}`);
+    });
+  // message pour dire mise à jour ok 
+  this.snackBar.open(
+    "Thanks for your update"
+    , ''
+    , {
+      duration: 2500
+    })
+}
 
 
 
   public deleteFilm(): void {
-    console.log('the movie need to be deleted')
+  console.log('the movie need to be deleted')
     this.snackBar.open(
-      "Are you vraiment sure?"
-      , 'I Confirm my bétise !'
-      , {
-        duration: 3500
-      })
-      .onAction().pipe(
-        take(1)
-      ).subscribe(() => {
-        this.movieService.delete(this.movie).pipe(take(1)).subscribe(() => {
-          this.snackBar.open(
-            "Movie deleted!"
-            , ''
-            , {
-              duration: 2500
-            });
+    "Are you vraiment sure?"
+    , 'I Confirm my bétise !'
+    , {
+      duration: 3500
+    })
+    .onAction().pipe(
+      take(1)
+    ).subscribe(() => {
+      this.movieService.delete(this.movie).pipe(take(1)).subscribe(() => {
+        this.snackBar.open(
+          "Movie deleted!"
+          , ''
+          , {
+            duration: 2500
+          });
 
-          this.router.navigate(['home']);
-        }
-        );
-      })
-  }
+        this.router.navigate(['home']);
+      }
+      );
+    })
+}
 }
 
 
