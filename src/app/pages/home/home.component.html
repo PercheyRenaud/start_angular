@@ -63,18 +63,26 @@
             <div class="card my-3 movie" *ngIf="(movie.year == defaultYear) || defaultYear == 0">
                 <div class="card-body">
                     <h2 class="container text-center">
-                        <a [routerLink]="['../','movie', movie.idMovie]"> {{movie.title}}
+                        <a>{{movie.title}}
                         </a>
                     </h2>
                     <h4 class="container text-center">
                         <a class="nav-link text-dark" [ngClass]="{'year': true}">{{movie.year}}
                         </a>
                     </h4>
-                    <button id="details" class="example-button-row" mat-button color="primary"
+                    <!-- bouton details before -->
+                    <!-- <button id="details" class="example-button-row" mat-button color="primary"
                         (click)="detailFilm(movie.idMovie)">
-                        More details</button>
+                        More details</button> -->
+
+                    <!-- bouton details -->
+                    <mat-card-actions id="details" class="col-2" class="example-button-row" mat-button color="primary"
+                        (click)="detailFilm(movie.idMovie)">
+                        <mat-icon> visibility</mat-icon>
+                    </mat-card-actions>
+
                     <!-- bouton like -->
-                    <mat-card-actions id="like"  class="nav-link text-dark" class="col-4" [routerLink]="['']"
+                    <mat-card-actions id="like" class="nav-link text-dark" class="col-4" [routerLink]="['']"
                         routerLinkActive="active" (click)=likeIt()>
                         <mat-icon>thumb_up_alt</mat-icon>
                     </mat-card-actions>

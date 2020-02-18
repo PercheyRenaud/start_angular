@@ -3,7 +3,7 @@ import { MovieService } from 'src/app/core/service/movie.service';
 import { take } from 'rxjs/operators';
 import { Movie } from 'src/app/core/model/movie';
 import { Observable, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { MatSnackBar, SimpleSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
@@ -66,24 +66,24 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['../', 'movie', idMovie])
     } else {
       const snack: MatSnackBarRef<SimpleSnackBar> = this.snackBar.open(
-
         'Sorry, need to be login',
         null,
         {
-          duration: 2500,
+          duration: 2000,
         }
       );
       snack.afterDismissed().subscribe((status: any) => {
-        this.router.navigate(['login'])
+        const navigationExtras: NavigationExtras = { state: { movie: idMovie } };
+        this.router.navigate(['login'], navigationExtras);
       });
     }
   }
 
-  
+
   public likeIt(): void {
     console.log('need to open likeIt method')
   }
-  
+
 
 
 }
