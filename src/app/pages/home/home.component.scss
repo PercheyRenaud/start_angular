@@ -25,3 +25,24 @@
     text-align: center;
        
 }
+
+#details {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    height: 20px;
+}
+#like {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display: inline-block;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    &:hover {
+        cursor: pointer;
+    }
+    
+}

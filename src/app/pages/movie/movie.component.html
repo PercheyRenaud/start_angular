@@ -1,1 +1,41 @@
 <p>{{movie | json }}</p>
+
+
+<mat-card-actions id="like" class="nav-link text-dark" class="col-4" [routerLink]="[]" routerLinkActive="active"
+    >
+    <mat-icon>thumb_up_alt</mat-icon>
+</mat-card-actions>
+
+<h1 class="container text-center">
+    Do you want to modify this movie?
+</h1>
+<form [formGroup]="movieForm">
+    <mat-form-field class="col-4">
+        <mat-label> Title</mat-label>
+        <input matInput placeholder="Title of movie" formControlName="title">
+
+    </mat-form-field>
+
+    <mat-form-field class="col-4">
+        <mat-label> Year</mat-label>
+        <input matInput placeholder="Release year of movie" formControlName="year">
+    </mat-form-field>
+
+    <mat-form-field class="col-4">
+        <mat-label> Genre(s)</mat-label>
+        <input matInput placeholder="Genre(s) of movie" formControlName="genre">
+    </mat-form-field> -->
+
+    <mat-form-field class="col-4">
+        <mat-label>Synopsis </mat-label>
+        <textarea matInput placeholder="Synopsis of movie" formControlName="synopsis"></textarea>
+    </mat-form-field>
+
+    <button class="example-button-row" mat-button color="primary" (click)="updateFilm() "
+        [disabled]="movieForm.invalid">
+        Save!</button>
+
+    <button class="example-button-row" mat-button color="primary" (click)="deleteFilm()" class="col-12">
+        Delete this movie!</button>
+
+</form>
